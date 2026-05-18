@@ -1,0 +1,10 @@
+Virtuoso 37000 Error SP030: SPARQL compiler, line 0: Bad character 'ï' (0xef) in SPARQL expression at 'ï'
+
+SPARQL query:
+#output-format:application/sparql-results+json
+ï»¿PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?s ?label WHERE {
+  ?s rdfs:label ?label .
+  FILTER(CONTAINS(LCASE(STR(?label)), "software testing"))
+} LIMIT 5
+

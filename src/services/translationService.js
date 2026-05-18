@@ -18,7 +18,7 @@ class TranslationService {
     if (targetLang === 'es') return results;
     
     const translated = { ...results };
-    const fieldsToTranslate = ['abstract', 'genre', 'platform'];
+    const fieldsToTranslate = ['label', 'name', 'abstract', 'description', 'genre', 'platform'];
     
     for (const field of fieldsToTranslate) {
       if (translated[field]) {

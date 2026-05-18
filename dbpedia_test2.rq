@@ -1,0 +1,5 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT DISTINCT ?s ?label WHERE {
+  ?s rdfs:label ?label .
+  FILTER(CONTAINS(LCASE(STR(?label)), "software"))
+} LIMIT 5

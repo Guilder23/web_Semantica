@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados para &quot;Defecto&quot; | Medical Knowledge Finder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- SVG Sprites para iconos -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-logo" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+    </symbol>
+    <symbol id="icon-dice" viewBox="0 0 24 24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5S8.33 18 7.5 18zm0-9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6S9 6.67 9 7.5S8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5S17.33 9 16.5 9z"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </symbol>
+  </svg>
+
+  <header class="bg-dark text-white p-3 mb-4 navbar-improved">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h4 mb-0">
+          <a href="/" class="text-white text-decoration-none logo-link">Buscador de Calidad de Software</a>
+        </h1>
+  
+        <!-- Agrupamos selector de idioma + formulario en un flex -->
+        <div class="d-flex align-items-center w-50">
+          <div class="dropdown language-selector">
+            <button 
+              class="btn dropdown-toggle btn-outline-light" 
+              type="button" 
+              id="languageDropdown" 
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="language-option">
+                
+                <svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" fill="#c60b1e" y="0"/><rect width="640" height="160" fill="#ffc400" y="160"/><rect width="640" height="160" fill="#c60b1e" y="320"/></svg> Español
+                
+                
+                
+              </span>
+              <i class="bi bi-chevron-down dropdown-arrow"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="?lang=en"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12" class="flag-icon">
+            <clipPath id="s">
+              <path d="M0,0 v30 h60 v-30 z"/>
+            </clipPath>
+            <clipPath id="t">
+              <path d="M30,15 h30 v15 z v-15 h-30 z M0,15 h30 v15 z v-15 h-30 z"/>
+            </clipPath>
+            <g clip-path="url(#s)">
+              <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#c8102e" stroke-width="4" clip-path="url(#t)"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/>
+            </g>
+          </svg>
+           English</a></li>
+              <li><a class="dropdown-item" href="?lang=es"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" fill="#c60b1e" y="0"/><rect width="640" height="160" fill="#ffc400" y="160"/><rect width="640" height="160" fill="#c60b1e" y="320"/></svg> Español</a></li>
+              <li><a class="dropdown-item" href="?lang=pt"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="480" fill="#046a38"/><rect width="640" height="320" y="80" fill="#da291c"/><circle cx="220" cy="240" r="95" fill="#ffed00"/><circle cx="220" cy="240" r="60" fill="#002d72"/><path fill="#fff" d="M220 240a20 20 0 1 1-40 0 20 20 0 0 1 40 0z"/></svg> Português</a></li>
+              <li><a class="dropdown-item" href="?lang=de"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" y="0" fill="#000"/><rect width="640" height="160" y="160" fill="#dd0000"/><rect width="640" height="160" y="320" fill="#ffce00"/></svg> Deutsch</a></li>
+              <li><a class="dropdown-item" href="?lang=fr"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="213.3" height="480" x="0" fill="#002395"/><rect width="213.3" height="480" x="213.3" fill="#fff"/><rect width="213.3" height="480" x="426.6" fill="#ed2939"/></svg> Français</a></li>
+            </ul>
+            
+            <style>
+              /* Estilos para el selector de idioma */
+              .language-selector {
+                position: relative;
+                transition: all 0.3s ease;
+              }
+              
+              .language-selector .btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                border-width: 2px;
+              }
+              
+              .language-selector .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background-color: rgba(255, 255, 255, 0.1);
+              }
+              
+              .language-selector .dropdown-toggle::after {
+                display: none;
+              }
+              
+              .dropdown-arrow {
+                transition: transform 0.3s ease;
+                font-size: 0.8rem;
+              }
+              
+              .language-selector.show .dropdown-arrow {
+                transform: rotate(180deg);
+              }
+              
+              .flag-icon {
+                width: 20px;
+                height: 15px;
+                margin-right: 8px;
+                border-radius: 2px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                transition: transform 0.2s ease;
+              }
+              
+              .dropdown-item:hover .flag-icon {
+                transform: scale(1.1);
+              }
+              
+              .dropdown-menu {
+                min-width: 180px;
+                border: none;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                animation: fadeInUp 0.3s ease;
+                border-radius: 8px;
+                overflow: hidden;
+              }
+              
+              .dropdown-item {
+                display: flex;
+                align-items: center;
+                padding: 8px 16px;
+                transition: all 0.2s ease;
+              }
+              
+              .dropdown-item:hover {
+                background-color: #f8f9fa;
+                transform: translateX(5px);
+              }
+              
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+            </style>
+          </div>        <div class="flex-grow-1 ms-2">
+            <form action="/search" method="get" class="search-form-improved">
+              <div class="search-container">
+                <input 
+                  type="search" 
+                  name="q" 
+                  value="Defecto" 
+                  class="search-input" 
+                  placeholder="Buscar conceptos de calidad (ej. mantenibilidad, defecto, testing)..."
+                  required
+                  aria-label="Buscar conceptos de calidad de software"
+                >
+                <button type="submit" class="search-button">
+                  <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                  </svg>
+                  <span class="search-text">Buscar</span>
+                </button>
+              </div>
+            
+              <style>
+                /* Estilos para el formulario mejorado */
+                .search-form-improved {
+                  position: relative;
+                  max-width: 600px;
+                  margin: 0 auto;
+                }
+                
+                .search-container {
+                  display: flex;
+                  align-items: center;
+                  position: relative;
+                  transition: all 0.3s ease;
+                }
+                
+                .search-input {
+                  flex: 1;
+                  padding: 12px 20px;
+                  border: 2px solid #e0e0e0;
+                  border-radius: 30px;
+                  font-size: 1rem;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  background-color: #fff;
+                }
+                
+                .search-input:focus {
+                  outline: none;
+                  border-color: #5e35b1;
+                  box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.2);
+                  transform: translateY(-1px);
+                }
+                
+                .search-input::placeholder {
+                  color: #9e9e9e;
+                  transition: opacity 0.3s ease;
+                }
+                
+                .search-input:focus::placeholder {
+                  opacity: 0.5;
+                }
+                
+                .search-button {
+                  position: absolute;
+                  right: 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 8px 16px;
+                  background: linear-gradient(135deg, #5e35b1, #3949ab);
+                  color: white;
+                  border: none;
+                  border-radius: 25px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                  height: calc(100% - 10px);
+                }
+                
+                .search-button:hover {
+                  background: linear-gradient(135deg, #7e57c2, #5c6bc0);
+                  transform: translateY(-1px);
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                
+                .search-button:active {
+                  transform: translateY(0);
+                }
+                
+                .search-icon {
+                  transition: transform 0.3s ease;
+                }
+                
+                .search-button:hover .search-icon {
+                  transform: scale(1.1);
+                }
+                
+                .search-text {
+                  margin-left: 8px;
+                  font-weight: 500;
+                  transition: all 0.3s ease;
+                }
+                
+                /* Efecto de onda al hacer clic */
+                @keyframes ripple {
+                  to {
+                    transform: scale(4);
+                    opacity: 0;
+                  }
+                }
+                
+                .search-button::after {
+                  content: '';
+                  position: absolute;
+                  width: 20px;
+                  height: 20px;
+                  background: rgba(255, 255, 255, 0.3);
+                  border-radius: 50%;
+                  transform: scale(0);
+                  opacity: 1;
+                  pointer-events: none;
+                }
+                
+                .search-button:active::after {
+                  animation: ripple 0.6s linear;
+                }
+                
+                /* Responsive */
+                @media (max-width: 576px) {
+                  .search-text {
+                    display: none;
+                  }
+                  
+                  .search-button {
+                    width: 40px;
+                    padding: 8px;
+                  }
+                  
+                  .search-icon {
+                    margin-right: 0;
+                  }
+                }
+              </style>
+            </form>        </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      /* Estilos para el navbar mejorado */
+      .navbar-improved {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        transition: all 0.3s ease;
+      }
+      
+      .navbar-improved::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
+        transition: 0.5s;
+      }
+      
+      .navbar-improved:hover::before {
+        left: 100%;
+      }
+      
+      .logo-link {
+        position: relative;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        padding: 5px 0;
+      }
+      
+      .logo-link:hover {
+        color: #ff6b6b !important;
+        transform: translateY(-2px);
+      }
+      
+      .logo-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #ff6b6b;
+        transition: width 0.3s ease;
+      }
+      
+      .logo-link:hover::after {
+        width: 100%;
+      }
+      
+      /* Animación para los elementos del navbar */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .navbar-improved .container > div > * {
+        animation: fadeIn 0.5s ease forwards;
+      }
+      
+      /* Efecto para los elementos interactivos */
+      .navbar-improved .btn, 
+      .navbar-improved .form-control {
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .navbar-improved .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .navbar-improved .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+        border-color: #ff6b6b;
+      }
+      
+      /* Efecto de hover para el contenedor completo */
+      .navbar-improved:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </header>  
+  <main class="container main-content">
+    <h1 class="results-title">
+  Resultados para "Defecto"
+  
+  
+  
+  
+</h1>
+
+  <div class="diseases-grid">
+      <div class="disease-card">
+        <!-- Encabezado con el nombre del enfermedad -->
+        <div class="disease-header">
+          <h2 class="disease-title">Defectos congénitos de la glicosilación</h2>
+        </div>
+
+        <!-- Imagen (si existe) -->
+
+        <!-- Cuerpo con descripción -->
+        <div class="disease-body">
+          <p class="disease-abstract"></p>
+        </div>
+
+        <!-- Enlaces -->
+        <div class="disease-footer">
+          <h3 class="references-title">
+            Referencias
+            
+            
+            
+            
+          </h3>
+          <div class="disease-links">
+            <a href="/disease/undefined?source=" class="disease-link">
+              <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm4 2a1 1 0 000 2h4a1 1 0 100-2H8z" clip-rule="evenodd" />
+              </svg>
+              <span>
+                Ver detalle
+                
+                
+                
+                
+              </span>
+            </a>
+              <a href="http://dbpedia.org/resource/Congenital_disorder_of_glycosylation" class="disease-link" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="link-icon" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                </svg>
+                <span>DBPedia</span>
+              </a>
+          </div>
+        </div>
+      </div>
+  </div>
+
+<style>
+  :root {
+    --primary-color: #4f46e5;
+    --secondary-color: #6366f1;
+    --text-color: #1f2937;
+    --light-text: #6b7280;
+    --bg-color: #f9fafb;
+    --card-bg: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+  }
+
+  .results-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    color: var(--light-text);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .diseases-grid {
+    gap: 2rem;
+    padding: 1rem 0;
+  }
+
+  .disease-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .disease-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .disease-header {
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  .disease-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+  }
+
+  /* Regla temporal de depuración: forzar color visible si variables CSS no están definidas */
+  .disease-title {
+    color: #111 !important;
+  }
+
+  .disease-image-container {
+    width: 100%;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+
+  .disease-image {
+    object-fit: cover;
+    transition: var(--transition);
+    display: flex;
+margin: 0 auto;
+  }
+
+  .disease-card:hover .disease-image {
+    transform: scale(1.05);
+  }
+
+  .disease-body {
+    padding: 0 1.5rem;
+    flex-grow: 1;
+  }
+
+  .disease-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    background-color: #e0e7ff;
+    color: var(--primary-color);
+  }
+
+  .tag-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.25rem;
+  }
+
+  .disease-abstract {
+    color: var(--light-text);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .disease-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .detail-icon {
+    width: 1rem;
+    height: 1rem;
+    color: var(--light-text);
+    flex-shrink: 0;
+  }
+
+  .detail-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .detail-label {
+    font-size: 0.75rem;
+    color: var(--light-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .detail-value {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .disease-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .references-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--light-text);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .disease-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .disease-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    background-color: #e0e7ff;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .disease-link:hover {
+    background-color: #c7d2fe;
+    color: #4338ca;
+  }
+
+  .link-icon {
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-right: 0.375rem;
+  }
+
+  @media (max-width: 768px) {
+    .diseases-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .results-title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+  </main>
+  
+  <footer class="mt-5 py-3 bg-light text-center">
+    <div class="container">
+      <p class="mb-0">Buscador de Medicina usando DBpedia &copy; 2026</p>
+      <p class="text-muted small mb-0">Datos proporcionados por DBpedia</p>
+    </div>
+  </footer>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

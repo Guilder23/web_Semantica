@@ -16,4 +16,7 @@ router.get('/search', rdfController.search);
 // Ruta para mostrar detalles de una enfermedad RDF
 router.get('/disease/:uri', rdfController.diseaseDetails);
 
+// Poblar dataset de Fuseki desde DBpedia (devuelve JSON)
+router.get('/populate', rdfController.populate);
+
 module.exports = router;

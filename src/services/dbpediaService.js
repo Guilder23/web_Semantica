@@ -17,6 +17,9 @@ class DBpediaService {
         params: {
           ...dbpediaConfig.defaultQueryOptions,
           query
+        },
+        headers: {
+          Accept: 'application/sparql-results+json, application/json'
         }
       });
 
@@ -24,16 +27,32 @@ class DBpediaService {
         throw new Error('Invalid response structure from DBpedia');
       }
 
-      const results = response.data.results.bindings.map(result => ({
-        uri: result.disease?.value,
-        name: result.label?.value,
-        description: result.abstract?.value,
-        icd10: result.icd10?.value,
-        specialty: result.specialty?.value,
-        field: result.field?.value
-      }));
+      const rows = response.data.results.bindings;
 
-      return results;
+      // Deduplicar por URI (DBpedia puede devolver varias filas por rdf:type)
+      const byUri = new Map();
+      for (const r of rows) {
+        const uri = r.disease?.value;
+        if (!uri) continue;
+
+        const existing = byUri.get(uri);
+        const type = r.type?.value;
+
+        if (!existing) {
+          byUri.set(uri, {
+            uri,
+            name: r.label?.value,
+            description: r.abstract?.value,
+            types: type ? [type] : []
+          });
+        } else {
+          if (type && !existing.types.includes(type)) existing.types.push(type);
+          if (!existing.name && r.label?.value) existing.name = r.label?.value;
+          if (!existing.description && r.abstract?.value) existing.description = r.abstract?.value;
+        }
+      }
+
+      return Array.from(byUri.values());
     } catch (error) {
       this._handleError(error);
       return [];
@@ -43,26 +62,21 @@ class DBpediaService {
   async getDiseaseDetails(uri, lang = 'es') {
     const endpoint = this._getEndpoint();
 
+    // Detalle genérico (útil para recursos de “calidad de software” en DBpedia)
     const query = `
       PREFIX dbo: <http://dbpedia.org/ontology/>
-      PREFIX dbp: <http://dbpedia.org/property/>
       PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+      PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
-      SELECT DISTINCT ?label ?abstract ?icd10 ?specialty ?field ?symptom ?treatment ?cause ?riskFactor WHERE {
-        BIND(<${uri}> AS ?disease)
-        ?disease rdfs:label ?label .
-        FILTER(LANG(?label) = "${lang}")
+      SELECT DISTINCT ?label ?abstract ?type ?p ?o WHERE {
+        BIND(<${uri}> AS ?s)
 
-        OPTIONAL { ?disease dbo:abstract ?abstract . FILTER(LANG(?abstract)="${lang}") }
-        OPTIONAL { ?disease dbp:icd10 ?icd10 }
-        OPTIONAL { ?disease dbo:medicalSpecialty ?specialty }
-        OPTIONAL { ?disease dbo:field ?field }
-        OPTIONAL { ?disease dbo:symptom ?symptom }
-        OPTIONAL { ?disease dbo:treatment ?treatment }
-        OPTIONAL { ?disease dbp:causes ?cause }
-        OPTIONAL { ?disease dbp:risk ?riskFactor }
+        OPTIONAL { ?s rdfs:label ?label . FILTER(LANG(?label) = "${lang}" || LANG(?label) = "en" || LANG(?label) = "") }
+        OPTIONAL { ?s dbo:abstract ?abstract . FILTER(LANG(?abstract) = "${lang}" || LANG(?abstract) = "en") }
+        OPTIONAL { ?s rdf:type ?type }
+        OPTIONAL { ?s ?p ?o }
       }
-      LIMIT 200
+      LIMIT 300
     `;
 
     try {
@@ -70,6 +84,9 @@ class DBpediaService {
         params: {
           ...dbpediaConfig.defaultQueryOptions,
           query
+        },
+        headers: {
+          Accept: 'application/sparql-results+json, application/json'
         }
       });
 
@@ -81,24 +98,17 @@ class DBpediaService {
 
       const base = rows[0];
 
-      const collectUnique = (key) => {
-        const values = rows
-          .map(r => r[key]?.value)
-          .filter(Boolean);
-        return Array.from(new Set(values));
-      };
+      const types = Array.from(new Set(rows.map(r => r.type?.value).filter(Boolean)));
+      const triples = rows
+        .map(r => ({ p: r.p?.value, o: r.o?.value }))
+        .filter(t => t.p && t.o);
 
       return {
         uri,
-        name: base.label?.value,
+        name: base.label?.value || uri,
         description: base.abstract?.value,
-        icd10: base.icd10?.value,
-        specialty: base.specialty?.value,
-        field: base.field?.value,
-        symptoms: collectUnique('symptom'),
-        treatments: collectUnique('treatment'),
-        causes: collectUnique('cause'),
-        riskFactors: collectUnique('riskFactor')
+        types,
+        triples
       };
     } catch (error) {
       this._handleError(error);

@@ -1,53 +1,23 @@
 <article>
   <div class="row">
     <div class="col-md-4 mb-4">
-      {{#if disease.thumbnail}}
-        <img src="{{disease.thumbnail}}" class="img-fluid rounded mb-3" alt="{{disease.name}}">
-      {{else}}
-        <div class="bg-light p-5 text-center text-muted rounded">
-          Imagen no disponible
-        </div>
-      {{/if}}
+      <div class="bg-light p-5 text-center text-muted rounded">
+        Concepto
+      </div>
       
       <div class="card mb-3">
         <div class="card-header bg-primary text-white">
-          <h2 class="h5 mb-0">Detalles de la Enfermedad</h2>
+          <h2 class="h5 mb-0">Detalles del Concepto</h2>
         </div>
         <ul class="list-group list-group-flush">
-          {{#if disease.designer}}
+          {{#if disease.types}}
             <li class="list-group-item">
-              <strong>Diseñador:</strong> {{disease.designer}}
-            </li>
-          {{/if}}
-          {{#if disease.year}}
-            <li class="list-group-item">
-              <strong>Año:</strong> {{disease.year}}
-            </li>
-          {{/if}}
-          {{#if disease.minPlayers}}
-            <li class="list-group-item">
-              <strong>Pacientes / población:</strong> {{disease.minPlayers}} 
-              {{#if disease.maxPlayers}}- {{disease.maxPlayers}}{{/if}}
-            </li>
-          {{/if}}
-          {{#if disease.playingTime}}
-            <li class="list-group-item">
-              <strong>Curso clínico o duración:</strong> {{disease.playingTime}} minutos
-            </li>
-          {{/if}}
-          {{#if disease.genre}}
-            <li class="list-group-item">
-              <strong>Género:</strong> {{disease.genre}}
-            </li>
-          {{/if}}
-          {{#if disease.mechanic}}
-            <li class="list-group-item">
-              <strong>Mecánica:</strong> {{disease.mechanic}}
-            </li>
-          {{/if}}
-          {{#if disease.publisher}}
-            <li class="list-group-item">
-              <strong>Editorial:</strong> {{disease.publisher}}
+              <strong>Tipos:</strong>
+              <div class="small text-muted">
+                {{#each disease.types}}
+                  <div>{{this}}</div>
+                {{/each}}
+              </div>
             </li>
           {{/if}}
         </ul>
@@ -59,15 +29,26 @@
       
       <div class="mb-4">
         <h2 class="h4">Descripción</h2>
-        <p>{{disease.abstract}}</p>
+        <p>{{disease.description}}</p>
       </div>
+
+      {{#if disease.triples}}
+        <div class="mb-4">
+          <h2 class="h4">Triples (muestra)</h2>
+          <div class="bg-light p-3 rounded" style="max-height: 260px; overflow:auto;">
+            {{#each disease.triples}}
+              <div class="small"><strong>{{this.p}}</strong> → {{this.o}}</div>
+            {{/each}}
+          </div>
+        </div>
+      {{/if}}
       
       <div class="d-flex justify-content-between">
-        <a href="/search?q={{encodeURIComponent (split disease.name ' '.[0])}}" class="btn btn-outline-secondary">
+        <a href="/search?q={{encodeURIComponent (split disease.name ' '.[0])}}&source={{source}}" class="btn btn-outline-secondary">
           Volver a resultados
         </a>
         <a href="{{disease.uri}}" class="btn btn-outline-primary" target="_blank" rel="noopener">
-          Ver en DBpedia
+          Ver URI
         </a>
       </div>
     </div>

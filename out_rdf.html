@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador RDF de Medicina | Medical Knowledge Finder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- SVG Sprites para iconos -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="icon-logo" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+    </symbol>
+    <symbol id="icon-dice" viewBox="0 0 24 24">
+      <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM7.5 18c-.83 0-1.5-.67-1.5-1.5S6.67 15 7.5 15s1.5.67 1.5 1.5S8.33 18 7.5 18zm0-9C6.67 9 6 8.33 6 7.5S6.67 6 7.5 6S9 6.67 9 7.5S8.33 9 7.5 9zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm4.5 4.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5s1.5.67 1.5 1.5s-.67 1.5-1.5 1.5zm0-9c-.83 0-1.5-.67-1.5-1.5S15.67 6 16.5 6s1.5.67 1.5 1.5S17.33 9 16.5 9z"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </symbol>
+  </svg>
+
+  <header class="bg-dark text-white p-3 mb-4 navbar-improved">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h4 mb-0">
+          <a href="/" class="text-white text-decoration-none logo-link">Buscador de Calidad de Software</a>
+        </h1>
+  
+        <!-- Agrupamos selector de idioma + formulario en un flex -->
+        <div class="d-flex align-items-center w-50">
+          <div class="dropdown language-selector">
+            <button 
+              class="btn dropdown-toggle btn-outline-light" 
+              type="button" 
+              id="languageDropdown" 
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <span class="language-option">
+                
+                <svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" fill="#c60b1e" y="0"/><rect width="640" height="160" fill="#ffc400" y="160"/><rect width="640" height="160" fill="#c60b1e" y="320"/></svg> Español
+                
+                
+                
+              </span>
+              <i class="bi bi-chevron-down dropdown-arrow"></i>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="?lang=en"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12" class="flag-icon">
+            <clipPath id="s">
+              <path d="M0,0 v30 h60 v-30 z"/>
+            </clipPath>
+            <clipPath id="t">
+              <path d="M30,15 h30 v15 z v-15 h-30 z M0,15 h30 v15 z v-15 h-30 z"/>
+            </clipPath>
+            <g clip-path="url(#s)">
+              <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/>
+              <path d="M0,0 L60,30 M60,0 L0,30" stroke="#c8102e" stroke-width="4" clip-path="url(#t)"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/>
+              <path d="M30,0 v30 M0,15 h60" stroke="#c8102e" stroke-width="6"/>
+            </g>
+          </svg>
+           English</a></li>
+              <li><a class="dropdown-item" href="?lang=es"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" fill="#c60b1e" y="0"/><rect width="640" height="160" fill="#ffc400" y="160"/><rect width="640" height="160" fill="#c60b1e" y="320"/></svg> Español</a></li>
+              <li><a class="dropdown-item" href="?lang=pt"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="480" fill="#046a38"/><rect width="640" height="320" y="80" fill="#da291c"/><circle cx="220" cy="240" r="95" fill="#ffed00"/><circle cx="220" cy="240" r="60" fill="#002d72"/><path fill="#fff" d="M220 240a20 20 0 1 1-40 0 20 20 0 0 1 40 0z"/></svg> Português</a></li>
+              <li><a class="dropdown-item" href="?lang=de"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="640" height="160" y="0" fill="#000"/><rect width="640" height="160" y="160" fill="#dd0000"/><rect width="640" height="160" y="320" fill="#ffce00"/></svg> Deutsch</a></li>
+              <li><a class="dropdown-item" href="?lang=fr"><svg class="flag-icon" viewBox="0 0 640 480"><rect width="213.3" height="480" x="0" fill="#002395"/><rect width="213.3" height="480" x="213.3" fill="#fff"/><rect width="213.3" height="480" x="426.6" fill="#ed2939"/></svg> Français</a></li>
+            </ul>
+            
+            <style>
+              /* Estilos para el selector de idioma */
+              .language-selector {
+                position: relative;
+                transition: all 0.3s ease;
+              }
+              
+              .language-selector .btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 12px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+                border-width: 2px;
+              }
+              
+              .language-selector .btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background-color: rgba(255, 255, 255, 0.1);
+              }
+              
+              .language-selector .dropdown-toggle::after {
+                display: none;
+              }
+              
+              .dropdown-arrow {
+                transition: transform 0.3s ease;
+                font-size: 0.8rem;
+              }
+              
+              .language-selector.show .dropdown-arrow {
+                transform: rotate(180deg);
+              }
+              
+              .flag-icon {
+                width: 20px;
+                height: 15px;
+                margin-right: 8px;
+                border-radius: 2px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                transition: transform 0.2s ease;
+              }
+              
+              .dropdown-item:hover .flag-icon {
+                transform: scale(1.1);
+              }
+              
+              .dropdown-menu {
+                min-width: 180px;
+                border: none;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                animation: fadeInUp 0.3s ease;
+                border-radius: 8px;
+                overflow: hidden;
+              }
+              
+              .dropdown-item {
+                display: flex;
+                align-items: center;
+                padding: 8px 16px;
+                transition: all 0.2s ease;
+              }
+              
+              .dropdown-item:hover {
+                background-color: #f8f9fa;
+                transform: translateX(5px);
+              }
+              
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+            </style>
+          </div>        <div class="flex-grow-1 ms-2">
+            <form action="/search" method="get" class="search-form-improved">
+              <div class="search-container">
+                <input 
+                  type="search" 
+                  name="q" 
+                  value="" 
+                  class="search-input" 
+                  placeholder="Buscar conceptos de calidad (ej. mantenibilidad, defecto, testing)..."
+                  required
+                  aria-label="Buscar conceptos de calidad de software"
+                >
+                <button type="submit" class="search-button">
+                  <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                  </svg>
+                  <span class="search-text">Buscar</span>
+                </button>
+              </div>
+            
+              <style>
+                /* Estilos para el formulario mejorado */
+                .search-form-improved {
+                  position: relative;
+                  max-width: 600px;
+                  margin: 0 auto;
+                }
+                
+                .search-container {
+                  display: flex;
+                  align-items: center;
+                  position: relative;
+                  transition: all 0.3s ease;
+                }
+                
+                .search-input {
+                  flex: 1;
+                  padding: 12px 20px;
+                  border: 2px solid #e0e0e0;
+                  border-radius: 30px;
+                  font-size: 1rem;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  background-color: #fff;
+                }
+                
+                .search-input:focus {
+                  outline: none;
+                  border-color: #5e35b1;
+                  box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.2);
+                  transform: translateY(-1px);
+                }
+                
+                .search-input::placeholder {
+                  color: #9e9e9e;
+                  transition: opacity 0.3s ease;
+                }
+                
+                .search-input:focus::placeholder {
+                  opacity: 0.5;
+                }
+                
+                .search-button {
+                  position: absolute;
+                  right: 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 8px 16px;
+                  background: linear-gradient(135deg, #5e35b1, #3949ab);
+                  color: white;
+                  border: none;
+                  border-radius: 25px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                  height: calc(100% - 10px);
+                }
+                
+                .search-button:hover {
+                  background: linear-gradient(135deg, #7e57c2, #5c6bc0);
+                  transform: translateY(-1px);
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                
+                .search-button:active {
+                  transform: translateY(0);
+                }
+                
+                .search-icon {
+                  transition: transform 0.3s ease;
+                }
+                
+                .search-button:hover .search-icon {
+                  transform: scale(1.1);
+                }
+                
+                .search-text {
+                  margin-left: 8px;
+                  font-weight: 500;
+                  transition: all 0.3s ease;
+                }
+                
+                /* Efecto de onda al hacer clic */
+                @keyframes ripple {
+                  to {
+                    transform: scale(4);
+                    opacity: 0;
+                  }
+                }
+                
+                .search-button::after {
+                  content: '';
+                  position: absolute;
+                  width: 20px;
+                  height: 20px;
+                  background: rgba(255, 255, 255, 0.3);
+                  border-radius: 50%;
+                  transform: scale(0);
+                  opacity: 1;
+                  pointer-events: none;
+                }
+                
+                .search-button:active::after {
+                  animation: ripple 0.6s linear;
+                }
+                
+                /* Responsive */
+                @media (max-width: 576px) {
+                  .search-text {
+                    display: none;
+                  }
+                  
+                  .search-button {
+                    width: 40px;
+                    padding: 8px;
+                  }
+                  
+                  .search-icon {
+                    margin-right: 0;
+                  }
+                }
+              </style>
+            </form>        </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+      /* Estilos para el navbar mejorado */
+      .navbar-improved {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        transition: all 0.3s ease;
+      }
+      
+      .navbar-improved::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #ff6b6b, transparent);
+        transition: 0.5s;
+      }
+      
+      .navbar-improved:hover::before {
+        left: 100%;
+      }
+      
+      .logo-link {
+        position: relative;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        padding: 5px 0;
+      }
+      
+      .logo-link:hover {
+        color: #ff6b6b !important;
+        transform: translateY(-2px);
+      }
+      
+      .logo-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: #ff6b6b;
+        transition: width 0.3s ease;
+      }
+      
+      .logo-link:hover::after {
+        width: 100%;
+      }
+      
+      /* Animación para los elementos del navbar */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .navbar-improved .container > div > * {
+        animation: fadeIn 0.5s ease forwards;
+      }
+      
+      /* Efecto para los elementos interactivos */
+      .navbar-improved .btn, 
+      .navbar-improved .form-control {
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      
+      .navbar-improved .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      
+      .navbar-improved .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(255, 107, 107, 0.25);
+        border-color: #ff6b6b;
+      }
+      
+      /* Efecto de hover para el contenedor completo */
+      .navbar-improved:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </header>  
+  <main class="container main-content">
+    <div class="hero-section">
+  <div class="hero-container container-fluid p-0">
+    <div class="row g-0 align-items-stretch">
+      <!-- Columna de imagen (izquierda en desktop, arriba en móvil) -->
+      <div class="col-lg-6 hero-image-col">
+        <div class="hero-image-wrapper">
+          <img
+            src="/images/medicina.jpg"
+            class="hero-image"
+            alt="Explora conocimiento de calidad de software"
+            loading="lazy"
+          />
+          <div class="hero-overlay">
+            <div class="overlay-content">
+              <h2 class="hero-subtitle">Explora Información Médica</h2>
+              <p class="hero-text">Consulta métricas, defectos y conceptos de ingeniería de software</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna de contenido (derecha en desktop, abajo en móvil) -->
+      <div class="col-lg-6 hero-content-col">
+        <div class="hero-content">
+          <h1 class="hero-title">Buscador de Calidad de Software</h1>
+          <div class="hero-description">
+            <p>
+              Bienvenido a nuestro buscador semántico de calidad de software. Utilizando ontologías (OWL/RDF)
+              y fuentes de conocimiento como DBpedia, te ofrecemos información sobre métricas, defectos,
+              atributos de calidad y conceptos relevantes de ingeniería de software.
+            </p>
+            <p>
+              Encuentra conceptos por nombre, tipo o descripción. Explora información útil para estudio,
+              análisis y documentación de prácticas y atributos de calidad.
+            </p>
+          </div>
+          
+          <div class="hero-search">
+            <form action="/search" method="get" class="search-form-improved">
+              <div class="search-container">
+                <input 
+                  type="search" 
+                  name="q" 
+                  value="" 
+                  class="search-input" 
+                  placeholder="Buscar conceptos de calidad (ej. mantenibilidad, defecto, testing)..."
+                  required
+                  aria-label="Buscar conceptos de calidad de software"
+                >
+                <button type="submit" class="search-button">
+                  <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+                    <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                  </svg>
+                  <span class="search-text">Buscar</span>
+                </button>
+              </div>
+            
+              <style>
+                /* Estilos para el formulario mejorado */
+                .search-form-improved {
+                  position: relative;
+                  max-width: 600px;
+                  margin: 0 auto;
+                }
+                
+                .search-container {
+                  display: flex;
+                  align-items: center;
+                  position: relative;
+                  transition: all 0.3s ease;
+                }
+                
+                .search-input {
+                  flex: 1;
+                  padding: 12px 20px;
+                  border: 2px solid #e0e0e0;
+                  border-radius: 30px;
+                  font-size: 1rem;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                  background-color: #fff;
+                }
+                
+                .search-input:focus {
+                  outline: none;
+                  border-color: #5e35b1;
+                  box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.2);
+                  transform: translateY(-1px);
+                }
+                
+                .search-input::placeholder {
+                  color: #9e9e9e;
+                  transition: opacity 0.3s ease;
+                }
+                
+                .search-input:focus::placeholder {
+                  opacity: 0.5;
+                }
+                
+                .search-button {
+                  position: absolute;
+                  right: 5px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  padding: 8px 16px;
+                  background: linear-gradient(135deg, #5e35b1, #3949ab);
+                  color: white;
+                  border: none;
+                  border-radius: 25px;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                  height: calc(100% - 10px);
+                }
+                
+                .search-button:hover {
+                  background: linear-gradient(135deg, #7e57c2, #5c6bc0);
+                  transform: translateY(-1px);
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+                
+                .search-button:active {
+                  transform: translateY(0);
+                }
+                
+                .search-icon {
+                  transition: transform 0.3s ease;
+                }
+                
+                .search-button:hover .search-icon {
+                  transform: scale(1.1);
+                }
+                
+                .search-text {
+                  margin-left: 8px;
+                  font-weight: 500;
+                  transition: all 0.3s ease;
+                }
+                
+                /* Efecto de onda al hacer clic */
+                @keyframes ripple {
+                  to {
+                    transform: scale(4);
+                    opacity: 0;
+                  }
+                }
+                
+                .search-button::after {
+                  content: '';
+                  position: absolute;
+                  width: 20px;
+                  height: 20px;
+                  background: rgba(255, 255, 255, 0.3);
+                  border-radius: 50%;
+                  transform: scale(0);
+                  opacity: 1;
+                  pointer-events: none;
+                }
+                
+                .search-button:active::after {
+                  animation: ripple 0.6s linear;
+                }
+                
+                /* Responsive */
+                @media (max-width: 576px) {
+                  .search-text {
+                    display: none;
+                  }
+                  
+                  .search-button {
+                    width: 40px;
+                    padding: 8px;
+                  }
+                  
+                  .search-icon {
+                    margin-right: 0;
+                  }
+                }
+              </style>
+            </form>          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* Estilos base para la hero section */
+    .hero-section {
+      margin-bottom: 3rem;
+      overflow: hidden;
+    }
+    
+    .hero-container {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    
+    /* Estilos para la columna de imagen */
+    .hero-image-col {
+      position: relative;
+      min-height: 400px;
+    }
+    
+    .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    
+    .hero-image-col:hover .hero-image {
+      transform: scale(1.03);
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+      padding: 2rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay-content {
+      transform: translateY(20px);
+      transition: transform 0.4s ease;
+    }
+    
+    .hero-image-col:hover .overlay-content {
+      transform: translateY(0);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.1s;
+    }
+    
+    .hero-text {
+      opacity: 0;
+      transition: opacity 0.3s ease 0.2s;
+    }
+    
+    .hero-image-col:hover .hero-subtitle,
+    .hero-image-col:hover .hero-text {
+      opacity: 1;
+    }
+    
+    /* Estilos para la columna de contenido */
+    .hero-content-col {
+      display: flex;
+      align-items: center;
+      padding: 3rem;
+      background: #fff;
+    }
+    
+    .hero-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .hero-title {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      display: inline-block;
+    }
+    
+    .hero-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #3498db, #9b59b6);
+      border-radius: 2px;
+    }
+    
+    .hero-description p {
+      color: #7f8c8d;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .hero-search {
+      margin-top: 2rem;
+      animation: fadeInUp 0.5s ease 0.3s both;
+    }
+    
+    /* Animaciones */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsividad */
+    @media (max-width: 992px) {
+      .hero-image-col,
+      .hero-content-col {
+        min-height: auto;
+      }
+      
+      .hero-content-col {
+        padding: 2rem;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-container {
+        border-radius: 0;
+      }
+      
+      .hero-image-col {
+        order: 1;
+        min-height: 300px;
+      }
+      
+      .hero-content-col {
+        order: 2;
+        padding: 1.5rem;
+      }
+      
+      .hero-title {
+        font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      width: 100%;
+      display: block;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f1f1f1;
+      margin-bottom: 1.5rem;
+      padding-bottom: 15px;
+      margin-top: 1rem;
+    }
+      
+      .hero-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -2px;
+      }
+      
+      .hero-description p {
+        text-align: center;
+      }
+      
+      .hero-search {
+        margin-top: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .hero-overlay {
+        padding: 1rem;
+      }
+    }
+  </style>
+</div>
+
+<!-- Sección de enfermedades destacadas -->
+  </main>
+  
+  <footer class="mt-5 py-3 bg-light text-center">
+    <div class="container">
+      <p class="mb-0">Buscador de Medicina usando DBpedia &copy; 2026</p>
+      <p class="text-muted small mb-0">Datos proporcionados por DBpedia</p>
+    </div>
+  </footer>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

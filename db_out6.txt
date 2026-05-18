@@ -1,0 +1,8 @@
+
+{ "head": { "link": [], "vars": ["s", "label"] },
+  "results": { "distinct": false, "ordered": true, "bindings": [
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Gelato_(software)" }	, "label": { "type": "literal", "xml:lang": "es", "value": "Gelato (software)" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Tracker_(search_software)" }	, "label": { "type": "literal", "xml:lang": "es", "value": "Tracker (software de b\u00FAsqueda)" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Interactive_Software_Federation_of_Europe" }	, "label": { "type": "literal", "xml:lang": "sv", "value": "Interactive Software Federation of Europe" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Server_software" }	, "label": { "type": "literal", "xml:lang": "en", "value": "Server software" }},
+    { "s": { "type": "uri", "value": "http://dbpedia.org/resource/Software_development_methodology" }	, "label": { "type": "literal", "xml:lang": "es", "value": "Metodolog\u00EDa de desarrollo de software" }} ] } }
