@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { URL, URLSearchParams } = require('url');
 const dbpediaConfig = require('../config/dbpedia');
-const { searchDiseases } = require('../utils/sparqlQueries');
+const { searchDiseases, isSoftwareQualityQuery } = require('../utils/sparqlQueries');
 
 class DBpediaService {
   _getEndpoint() {
@@ -9,6 +9,10 @@ class DBpediaService {
   }
 
   async searchDiseases(term, lang = 'es') {
+    if (!isSoftwareQualityQuery(term)) {
+      return [];
+    }
+
     const endpoint = this._getEndpoint();
     const query = searchDiseases(term, lang);
 

@@ -9,12 +9,21 @@
       required
       aria-label="Buscar conceptos de calidad de software"
     >
-    <button type="submit" class="search-button">
-      <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
-        <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      </svg>
-      <span class="search-text">Buscar</span>
-    </button>
+    <div class="search-actions" role="group" aria-label="Elegir fuente de búsqueda">
+      <button type="submit" name="source" value="fuseki" class="search-button search-button-local">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <span class="search-text">Local</span>
+      </button>
+
+      <button type="submit" name="source" value="dbpedia" class="search-button search-button-dbpedia">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a7.94 7.94 0 0 1-5.19-1.93l7.27-7.27A7.94 7.94 0 0 1 20 12a8 8 0 0 1-8 8zm-6.1-2.81A7.94 7.94 0 0 1 4 12a8 8 0 0 1 8-8 7.94 7.94 0 0 1 5.19 1.93z"/>
+        </svg>
+        <span class="search-text">DBpedia</span>
+      </button>
+    </div>
   </div>
 
   <style>
@@ -30,6 +39,8 @@
       align-items: center;
       position: relative;
       transition: all 0.3s ease;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     
     .search-input {
@@ -60,8 +71,6 @@
     }
     
     .search-button {
-      position: absolute;
-      right: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -69,11 +78,25 @@
       background: linear-gradient(135deg, #5e35b1, #3949ab);
       color: white;
       border: none;
-      border-radius: 25px;
+      border-radius: 999px;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      height: calc(100% - 10px);
+      min-height: 44px;
+    }
+
+    .search-actions {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+    }
+
+    .search-button-local {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    }
+
+    .search-button-dbpedia {
+      background: linear-gradient(135deg, #0f766e, #115e59);
     }
     
     .search-button:hover {
@@ -126,15 +149,24 @@
     
     /* Responsive */
     @media (max-width: 576px) {
+      .search-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-actions {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .search-button {
+        flex: 1;
+      }
+
       .search-text {
         display: none;
       }
-      
-      .search-button {
-        width: 40px;
-        padding: 8px;
-      }
-      
+
       .search-icon {
         margin-right: 0;
       }

@@ -1,4 +1,56 @@
 module.exports = {
+  isSoftwareQualityQuery: (term) => {
+    if (!term || typeof term !== 'string') {
+      return false;
+    }
+
+    const normalize = (value) => String(value)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase();
+
+    const normalized = normalize(term);
+
+    const qualityKeywords = [
+      'calidad de software',
+      'quality of software',
+      'software quality',
+      'calidad',
+      'software',
+      'testing',
+      'test',
+      'defect',
+      'bug',
+      'maintainability',
+      'reliability',
+      'usability',
+      'efficiency',
+      'portability',
+      'security',
+      'performance',
+      'validation',
+      'verification',
+      'metric',
+      'metrics',
+      'mantenibilidad',
+      'fiabilidad',
+      'usabilidad',
+      'eficiencia',
+      'portabilidad',
+      'seguridad',
+      'rendimiento',
+      'deuda tecnica',
+      'technical debt',
+      'code smell',
+      'smell',
+      'iso 25010',
+      'iso 25000',
+      'iso/iec 25010'
+    ];
+
+    return qualityKeywords.some(keyword => normalized.includes(normalize(keyword)));
+  },
+
   searchDiseases: (term, lang = "es") => {
     if (!term || typeof term !== "string") {
       throw new Error("Invalid search term");
