@@ -1,3 +1,0 @@
-
-{ "head": { "link": [], "vars": ["s", "label"] },
-  "results": { "distinct": false, "ordered": true, "bindings": [ ] } }
